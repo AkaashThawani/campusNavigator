@@ -1,0 +1,21 @@
+.example-card {
+    padding: 5px;
+    margin: 5px;
+}
+
+.example-card .mat-mdc-card-header {
+    width: 100%;
+}
+
+.example-card .mat-mdc-card-header .mat-mdc-card-header-text {
+    width: 99%;
+}
+
+.resource-header,
+.resource-page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: inherit;
+}

@@ -1,0 +1,21 @@
+.mat-accordion .mat-expansion-panel .mat-expansion-panel-header .mat-content .mat-expansion-panel-header-title,
+.mat-accordion .mat-expansion-panel .mat-expansion-panel-header .mat-content .mat-expansion-panel-header-description {
+    color: white !important;
+}
+
+.mat-accordion>.mat-expansion-panel .mat-expansion-panel-header {
+    background-color: var(--primary-color) !important;
+}
+
+.mat-expansion-indicator::after {
+    color: white !important;
+}
+
+.mat-toolbar-row {
+    background-color: var(--primary-color);
+    columns: white !important;
+}
+
+.mat-mdc-card{
+    box-shadow: none !important;
+}

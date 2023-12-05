@@ -1,0 +1,60 @@
+.sidenav-container {
+    display: flex;
+    height: 100% !important;
+}
+
+.sidenav-container .sidenav {
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+}
+
+.sidenav-container .mat-sidenav .sidenav-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sidenav-container .mat-sidenav .sidenav-item .sidenav-button {
+    background-color: transparent;
+    border: none;
+    width: 100% !important;
+    text-align: left !important;
+}
+
+.hamburger {
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.sidenav-container.sidenav.a {
+    display: block;
+    padding: 6px 24px;
+    width: 100%;
+    text-align: left;
+}
+
+
+main {
+    padding: 18px 24px;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: white;
+}
+
+.white {
+    color: white;
+}
+
+.content{
+    width: inherit;
+    height: 100%;
+}
