@@ -8,27 +8,52 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Router, RouterOutlet } from '@angular/router';
 import { ViewEncapsulation } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { FlexLayoutServerModule } from '@angular/flex-layout/server';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginModalComponent } from '../../dialogs/login-modal/login-modal.component';
+import { ApiService } from '../../api.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-base',
   standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatDividerModule, MatButtonModule, RouterOutlet,MatIconModule,GoogleMapsModule],
+  imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatDividerModule, MatButtonModule, RouterOutlet, MatIconModule, GoogleMapsModule, FlexLayoutServerModule, FlexLayoutModule, MatMenuModule],
   templateUrl: './base.component.html',
   styleUrl: './base.component.css',
-  encapsulation:ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 export class BaseComponent {
 
   public router = inject(Router);
+  constructor(private dialog: MatDialog, private apiService: ApiService, private authService: AuthService) { }
 
-  sideNavData = [{ name: 'Map', id: 'maps' }, { name: 'Events', id: 'events' }, { name: 'Resources', id: 'resources' }, { name: 'Contact Us', id: 'contactus' }];
+  sideNavData = [{ name: 'Map', id: 'maps', 'user': 'normal', icon: 'map' }, { name: 'Events', id: 'events', 'user': 'normal', icon: 'event' }, { name: 'Resources', id: 'resources', 'user': 'normal', icon: 'help' }, { name: 'Feedback', id: 'feedback', 'user': 'admin', icon: 'feedback' }];
 
   @ViewChild('sidenav')
   public sidenav!: MatSidenav;
 
+  logIn: boolean = false
+  userData: any
   // @ViewChild('drawer')
   // public drawer!: MatDrawer;
   isMenuOpen!: boolean;
+
+  ngOnInit() {
+    this.userData = JSON.parse(sessionStorage.getItem('userData') as any) || null
+    if (this.userData.login) {
+      this.logIn = true
+    }
+    else {
+      this.apiService.loginCheck().subscribe((res) => {
+        this.logIn = res
+        if (this.logIn) {
+          this.userData = JSON.parse(sessionStorage.getItem('userData') as any)
+        }
+      })
+    }
+  }
 
   toggle() {
     this.sidenav.toggle();
@@ -41,6 +66,22 @@ export class BaseComponent {
 
   navigate(data: any) {
     this.router.navigate([data.id])
+  }
+
+  openLogin() {
+    const dialog = this.dialog.open(LoginModalComponent)
+    dialog.afterClosed().subscribe((res) => {
+      this.apiService.loginCheck().subscribe((res) => {
+        this.logIn = res
+        this.userData = JSON.parse(sessionStorage.getItem('userData') as any)
+      })
+    })
+  }
+
+  logout() {
+    this.authService.logout()
+    this.apiService.setLogin(false)
+    this.logIn = false
   }
 
 }

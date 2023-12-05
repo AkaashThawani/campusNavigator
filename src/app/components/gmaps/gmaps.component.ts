@@ -109,6 +109,7 @@ export class GmapsComponent {
         const place = this.autocomplete?.getPlace();
         if (place?.geometry) {
           console.log('Place selected:', place);
+          this.fromLocationName = place.name || null;
           var p = place.geometry.location as any
           this.handlePlaceSelection(p, true)
         }
@@ -120,6 +121,7 @@ export class GmapsComponent {
         const place = this.autocomplete2?.getPlace();
         if (place?.geometry) {
           console.log('Place selected:', place);
+          this.toLocationName = place.name || null;
           var p = place.geometry.location as any
           this.handlePlaceSelection(p, false)
         }
@@ -136,26 +138,42 @@ export class GmapsComponent {
 
   private fromLocation: google.maps.LatLng | null = null;
   private toLocation: google.maps.LatLng | null = null;
+  private fromLocationName: string | null = null;
+  private toLocationName: string | null = null;
 
   apiKey = environment.googleMapsApiKey;
 
   saveLocation() {
-    const locationData = {
-      from_location: this.fromLocation,
-      to_location: this.toLocation
-    };
+    if (this.fromLocation && this.toLocation) {
+      const locationData = {
+        from_location: {
+          name: this.fromLocationName, // Replace with the actual name or leave it empty
+          lat: this.fromLocation.lat().toString(),
+          lng: this.fromLocation.lng().toString()
+        },
+        to_location: {
+          name: this.toLocationName, // Replace with the actual name or leave it empty
+          lat: this.toLocation.lat().toString(),
+          lng: this.toLocation.lng().toString()
+        },
+        "travel_mode": this.selectedMode.toUpperCase(),
+        "search_by": "ANON" 
+      };
 
-    this.locationService.saveLocation(locationData).subscribe(
-      response => {
-        console.log('Location saved successfully:', response);
-        // Optionally, you can perform additional actions after successful save
-        this.calculateAndDisplayRoute();
-        this.clearMarkers()
-      },
-      error => {
-        console.error('Error saving location:', error);
-      }
-    );
+      this.locationService.saveLocation(locationData).subscribe(
+        response => {
+          console.log('Location saved successfully:', response);
+          // Optionally, you can perform additional actions after a successful save
+          this.calculateAndDisplayRoute();
+          this.clearMarkers();
+        },
+        error => {
+          console.error('Error saving location:', error);
+        }
+      );
+    } else {
+      console.error('Both fromLocation and toLocation must be set before saving.');
+    }
   }
 
   toggleMode(mode: 'driving' | 'walking' | 'bicycling') {

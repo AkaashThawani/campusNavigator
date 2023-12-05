@@ -47,14 +47,21 @@ main {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: space-between;
     color: white;
 }
 
 .white {
-    color: white;
+    color: white !important;
 }
 
-.content{
+.content {
     width: inherit;
     height: 100%;
+}
+
+.logout-btn {
+    border-radius: 4px;
+    background-color: #f44336 !important;
+    color: white !important;
 }
