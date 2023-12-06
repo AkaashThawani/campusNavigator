@@ -15,21 +15,22 @@ import { LoginModalComponent } from '../../dialogs/login-modal/login-modal.compo
 import { ApiService } from '../../api.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../../auth.service';
+import { EventPageComponent } from "../event-page/event-page.component";
 
 @Component({
-  selector: 'app-base',
-  standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatDividerModule, MatButtonModule, RouterOutlet, MatIconModule, GoogleMapsModule, FlexLayoutServerModule, FlexLayoutModule, MatMenuModule],
-  templateUrl: './base.component.html',
-  styleUrl: './base.component.css',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-base',
+    standalone: true,
+    templateUrl: './base.component.html',
+    styleUrl: './base.component.css',
+    encapsulation: ViewEncapsulation.None,
+    imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatDividerModule, MatButtonModule, RouterOutlet, MatIconModule, GoogleMapsModule, FlexLayoutServerModule, FlexLayoutModule, MatMenuModule, EventPageComponent]
 })
 export class BaseComponent {
 
   public router = inject(Router);
   constructor(private dialog: MatDialog, private apiService: ApiService, private authService: AuthService) { }
 
-  sideNavData = [{ name: 'Map', id: 'maps', 'user': 'normal', icon: 'map' }, { name: 'Events', id: 'events', 'user': 'normal', icon: 'event' }, { name: 'Resources', id: 'resources', 'user': 'normal', icon: 'help' }, { name: 'Feedback', id: 'feedback', 'user': 'admin', icon: 'feedback' }];
+  sideNavData = [{ name: 'Map', id: 'maps', 'user': 'normal', icon: 'map' }, { name: 'Events', id: 'events', 'user': 'normal', icon: 'event' }, { name: 'Resources', id: 'resources', 'user': 'normal', icon: 'help' }, { name: 'Contact Us', id: 'feedback', 'user': 'normal', icon: 'feedback' }];
 
   @ViewChild('sidenav')
   public sidenav!: MatSidenav;
@@ -41,6 +42,7 @@ export class BaseComponent {
   isMenuOpen!: boolean;
 
   ngOnInit() {
+    // this.openNotification()
     this.userData = JSON.parse(sessionStorage.getItem('userData') as any) || null
     if (this.userData.login) {
       this.logIn = true
@@ -61,6 +63,11 @@ export class BaseComponent {
         this.apiService.USERTYPE = this.userData.usertype
       }
     })
+
+  }
+
+  ngAfterViewInit(){
+    this.sidenav.open()
   }
 
   toggle() {
@@ -95,10 +102,17 @@ export class BaseComponent {
         this.apiService.setLogin(false)
         this.logIn = false
       } else {
+        this.apiService.setLogin(false)
+        this.logIn = false
         this.apiService.openSnackBar(res?.message)
       }
     })
+    sessionStorage.removeItem('userData');
 
+  }
+
+  openNotification(){
+    this.apiService.openNotificationBar('THIS IS A NOTIFICATION !!')
   }
 
 }

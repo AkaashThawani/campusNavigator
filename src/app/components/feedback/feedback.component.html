@@ -1,1 +1,33 @@
-<p>feedback works!</p>
+<mat-card class="p-10" fxLayout="column nowrap" fxLayoutAlign="space-between stretch" style="height: 80vh;">
+    <div>
+        <h1>Contact Us</h1>
+        <mat-divider></mat-divider>
+    </div>
+    <p>
+        Thank you for reaching out to us. Please fill out the form below, and we'll get back to you as soon as
+        possible.
+    </p>
+    
+    <form fxLayout="column nowrap" fxLayoutAlign="start stretch">
+        <div fxLayout="row nowrap" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+            <mat-form-field appearance="outline" fxFlex="50%">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" id="name" name="name" [formControl]="name" fxFlex placeholder="Your Name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50%">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" name="email" fxFlex [formControl]="email" placeholder="Your Email">
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Comments</mat-label>
+            <textarea matInput [rows]="5" [cols]="15" fxFlex name="comments" [formControl]="comments"
+                placeholder="Your Comments"></textarea>
+        </mat-form-field>
+    </form>
+    <mat-divider></mat-divider>
+    <div fxLayout="row wrap" fxLayoutAlign="end center">
+        <button mat-flat-button class="primary-btn" (click)="saveFB()"
+            [disabled]="email.invalid || comments.invalid || name.invalid">Submit</button>
+    </div>
+</mat-card>

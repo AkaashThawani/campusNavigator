@@ -17,7 +17,7 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item class="logout-btn" (click)="logout()">
-                        <mat-icon class="white" color="white">power_settings_new</mat-icon>  
+                        <mat-icon class="white" color="white">power_settings_new</mat-icon>
                         Logout</button>
                 </mat-menu>
             </ng-template>
@@ -26,25 +26,29 @@
     </mat-toolbar>
     <mat-sidenav-container class="sidenav-container">
         <mat-sidenav #sidenav autoFocus="false" mode="side" [(opened)]="isMenuOpen" class="sidenav">
+            <div>
+                <img height="120px" src="assets/images/logo1.png" alt="logo">
+            </div>
             @for(i of sideNavData;track i.id){
             @if (i.user=='normal') {
             <div class="sidenav-item" fxLayout="row wrap">
 
-                <button mat-button (click)="navigate(i)" class="sidenav-button"> <mat-icon
+                <button mat-button (click)="navigate(i)" class="sidenav-button align-left"> <mat-icon
                         class="mat-18">{{i.icon}}</mat-icon>{{i.name}}</button>
             </div>
             }@else if (userData!=null && userData?.usertype=='admin' && i.user=='admin'){
             <div class="sidenav-item">
-
-                <button mat-button (click)="navigate(i)" class="sidenav-button"> <mat-icon
-                        class="mat-18">{{i.icon}}</mat-icon>{{i.name}}</button>
+                <button mat-button (click)="navigate(i)" class="sidenav-button align-left"> <mat-icon
+                        class="mat-18">{{i.icon}}</mat-icon>{{i.name}}
+                </button>
             </div>
             }
 
             }
         </mat-sidenav>
-        <mat-sidenav-content class="content p-10">
+        <mat-sidenav-content class="content p-15">
             <router-outlet></router-outlet>
         </mat-sidenav-content>
+
     </mat-sidenav-container>
 </div>

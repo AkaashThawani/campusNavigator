@@ -18,12 +18,14 @@ import { dir } from 'console';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtmlPipe } from './safeHtml.pipe';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
   selector: 'app-gmaps',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, MatInputModule, MatButtonModule, FlexLayoutModule, FlexLayoutServerModule, NgSelectModule, MatFormFieldModule, FormsModule, GoogleMapsModule, SafeHtmlPipe, MatSelectModule],
+  imports: [CommonModule, GoogleMapsModule, MatInputModule, MatButtonModule, FlexLayoutModule, FlexLayoutServerModule, NgSelectModule, MatFormFieldModule, FormsModule, GoogleMapsModule, SafeHtmlPipe, MatSelectModule,MatIconModule,MatCardModule],
   providers: [ApiService],
   templateUrl: './gmaps.component.html',
   styleUrl: './gmaps.component.css'

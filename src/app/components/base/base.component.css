@@ -58,6 +58,8 @@ main {
 .content {
     width: inherit;
     height: 100%;
+    background: #ececec;
+
 }
 
 .logout-btn {
@@ -65,3 +67,8 @@ main {
     background-color: #f44336 !important;
     color: white !important;
 }
+
+.align-left{
+    justify-content: start !important;
+}
+

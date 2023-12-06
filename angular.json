@@ -30,7 +30,9 @@
               "src/assets/scss/common.scss",
               "@ng-select/ng-select/themes/material.theme.css"
             ],
-            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "chart.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

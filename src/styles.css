@@ -175,3 +175,47 @@ body {
     padding: 10px;
 
 }
+
+/* Define scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+  }
+  
+  /* Track styles */
+  ::-webkit-scrollbar-track {
+    background-color: #8f8f8f; /* Set your desired background color */
+    border-radius: 5px; /* Adjust the border radius for a curved appearance */
+  }
+  
+  /* Handle styles */
+  ::-webkit-scrollbar-thumb {
+    background-color: #a6a5a5; /* Set your desired thumb color */
+    border-radius: 5px; /* Adjust the border radius for a curved appearance */
+  }
+  
+  /* Handle hover styles */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #adadad; /* Set a different color on hover if desired */
+  }
+
+  /* Define scrollbar styles for Firefox */
+/* The scrollbar width and appearance properties are used for Firefox */
+
+/* Track styles */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #f1f1f1 #b5b5b5;
+  }
+  
+  /* Handle hover styles for Firefox */
+  html:hover {
+    scrollbar-color: #f1f1f1 #9a9a9a;
+  }
+
+  .center{
+    text-align: center;
+  }
+
+  .bold{
+    font-weight: 700;
+  }

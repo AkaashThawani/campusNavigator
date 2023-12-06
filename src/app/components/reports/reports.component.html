@@ -1,0 +1,32 @@
+<div fxLayout="row nowrap" fxLayoutAlign="space-between stretch">
+    <mat-card fxFlex="49" fxLayout="column nowrap" fxLayoutAlign="center stretch">
+        <div class="center bold mt-10">Top From Locations</div>
+        <div>
+            @for (locaton of topFromLocations; track $index) {
+            <ul>
+                <li>{{locaton.label}}</li>
+            </ul>
+            }
+        </div>
+    </mat-card>
+    <mat-card fxFlex="49" fxLayout="column nowrap" fxLayoutAlign="center stretch">
+        <div class="center bold  mt-10">Top From Locations</div>
+        <div>
+            @for (locaton of topToLocations; track $index) {
+            <ul>
+                <li>{{locaton.label}}</li>
+            </ul>
+            }
+        </div>
+    </mat-card>
+</div>
+<div fxLayout="row nowrap" fxLayoutAlign="space-between stretch" class="mt-10">
+    <div fxFlex="49">
+        <app-charts [pieChartBg]="['red','blue','green']" [pieChartData]="pieChartData"
+            [pieChartLabels]="pieChartLabels" pieChartType="pie"></app-charts>
+    </div>
+    <div fxFlex="49">
+        <app-charts [pieChartBg]="['red','blue']" [pieChartData]="regChartData" [pieChartLabels]="regChartLabels"
+            pieChartType="pie" [chartText]="'Type of Users'"></app-charts>
+    </div>
+</div>

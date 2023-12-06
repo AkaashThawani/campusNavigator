@@ -65,9 +65,8 @@
 
 /* Instructions container */
 .instructions-container {
-    max-height: 300px;
+    max-height: 80vh;
     overflow-y: auto;
-    margin-top: 20px;
 }
 
 /* Individual instruction */
@@ -87,6 +86,7 @@
 
 .instruction span.step-number {
     font-weight: bold;
+    font-size: medium;
     margin-right: 10px;
     color: #3498db;
 }
@@ -101,4 +101,8 @@ google-map {
     overflow: hidden;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.p-10{
+    padding: 10px;
 }

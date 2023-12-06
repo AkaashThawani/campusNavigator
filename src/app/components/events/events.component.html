@@ -1,1 +1,6 @@
 <p>events works!</p>
+<button mat-flat-button class="primary-btn" (click)="eventData=!eventData">Open</button>
+<div id="event" class="top-div" *ngIf="eventData">
+    DV
+    <app-event-page> </app-event-page>
+</div>

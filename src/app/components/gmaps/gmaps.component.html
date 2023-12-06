@@ -1,55 +1,59 @@
-<div fxLayout="column nowrap" fxLayoutAlign="start stretch">
-    <div fxLayout="row wrap" fxLayoutAlign="space-between end" class="form-container">
-        <!-- First Form Field -->
-        <div fxLayout="column nowrap" fxLayoutAlign="start stretch" fxFlex="40">
-            <mat-label>From</mat-label>
-            <input *ngIf="false" matInput>
-            <div class="app-google-places-input">
-                <input type="text" placeholder="Enter location..." [(ngModel)]="searchQuery" #placesSearch />
+<mat-card class="p-10">
+    <div fxLayout="column nowrap" fxLayoutAlign="start stretch">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between end" class="form-container">
+            <!-- First Form Field -->
+            <div fxLayout="column nowrap" fxLayoutAlign="start stretch" fxFlex="40">
+                <mat-label>From</mat-label>
+                <input *ngIf="false" matInput>
+                <div class="app-google-places-input">
+                    <input type="text" placeholder="Enter location..." [(ngModel)]="searchQuery" #placesSearch />
+                </div>
+                <!-- <ng-select matInput [items]="fromLocations" bindLabel="name" (search)="onSearchInput($event)" [(ngModel)]="fromLocation" placeholder="Select From"></ng-select> -->
             </div>
-            <!-- <ng-select matInput [items]="fromLocations" bindLabel="name" (search)="onSearchInput($event)" [(ngModel)]="fromLocation" placeholder="Select From"></ng-select> -->
-        </div>
 
-        <!-- Second Form Field -->
-        <div fxLayout="column nowrap" fxLayoutAlign="start stretch" fxFlex="40">
-            <mat-label>To</mat-label>
-            <input *ngIf="false" matInput>
-            <div class="app-google-places-input">
-                <input type="text" placeholder="Enter location..." [(ngModel)]="searchQuery2" #placesSearch2 />
+            <!-- Second Form Field -->
+            <div fxLayout="column nowrap" fxLayoutAlign="start stretch" fxFlex="40">
+                <mat-label>To</mat-label>
+                <input *ngIf="false" matInput>
+                <div class="app-google-places-input">
+                    <input type="text" placeholder="Enter location..." [(ngModel)]="searchQuery2" #placesSearch2 />
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button mat-raised-button fxFlex class="primary-btn" (click)="saveLocation()">Search</button>
             </div>
         </div>
 
-        <!-- Submit Button -->
-        <div>
-            <button mat-raised-button fxFlex class="primary-btn" (click)="saveLocation()">Search</button>
+        <div fxLayout="column nowrap" fxLayoutAlign="start stretch" fxFlex="40">
+            <mat-label>Travel Mode</mat-label>
+            <div class="mode-toggle">
+                <button mat-raised-button [class.active]="selectedMode === 'driving'" (click)="toggleMode('driving')">
+                    <mat-icon> directions_car</mat-icon> Driving</button>
+                <button mat-raised-button [class.active]="selectedMode === 'walking'" (click)="toggleMode('walking')">
+                    <mat-icon> directions_walk</mat-icon> Walking</button>
+                <button mat-raised-button [class.active]="selectedMode === 'bicycling'"
+                    (click)="toggleMode('bicycling')">
+                    <mat-icon> directions_bike</mat-icon>Cycling</button>
+            </div>
         </div>
     </div>
 
-    <div fxLayout="column nowrap" fxLayoutAlign="start stretch" fxFlex="40">
-        <mat-label>Travel Mode</mat-label>
-        <div class="mode-toggle">
-            <button mat-raised-button [class.active]="selectedMode === 'driving'"
-                (click)="toggleMode('driving')">Driving</button>
-            <button mat-raised-button [class.active]="selectedMode === 'walking'"
-                (click)="toggleMode('walking')">Walking</button>
-            <button mat-raised-button [class.active]="selectedMode === 'bicycling'"
-                (click)="toggleMode('bicycling')">Cycling</button>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <div fxFlex="25%" *ngIf="directions && directions.length" class="instructions-container">
+            <h2>Directions </h2>
+            <div *ngFor="let step of directions;index as i" class="instruction">
+                <span class="step-number">{{ step?.distance.text}} , {{step?.duration.text}}</span>
+                <span class="instruction-text">
+                    <div [innerHTML]="step.instructions | safeHtml"></div>
+                </span>
+            </div>
+        </div>
+        <div fxFlex>
+            <google-map #map [center]="center" [options]="mapOptions" width="100%" style="width: 80vh; height: 80vh;">
+                <map-marker *ngFor="let marker of markers" [position]="getMarkerPosition(marker)"></map-marker>
+            </google-map>
         </div>
     </div>
-</div>
-
-<div>
-    <google-map #map [center]="center" [options]="mapOptions" width="100%" style="width: 80vh; height: 80vh;">
-        <map-marker *ngFor="let marker of markers" [position]="getMarkerPosition(marker)"></map-marker>
-    </google-map>
-</div>
-
-<div *ngIf="directions && directions.length" class="instructions-container">
-    <h2>Directions </h2>
-    <div *ngFor="let step of directions;index as i" class="instruction">
-        <span class="step-number">{{ step?.distance.text}} , {{step?.duration.text}}</span>
-        <span class="instruction-text">
-            <div [innerHTML]="step.instructions | safeHtml"></div>
-        </span>
-    </div>
-</div>
+</mat-card>

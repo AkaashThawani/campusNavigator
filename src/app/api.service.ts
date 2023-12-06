@@ -30,7 +30,17 @@ export class ApiService {
   accessToken = ''
 
   openSnackBar(message: any) {
-    this.snackBar.open(message, 'X');
+    this.snackBar.open(message, 'X',{
+      duration:1000
+    });
+  }
+
+  openNotificationBar(message: any) {
+    this.snackBar.open(message, 'X',{
+      duration:3000,
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
   }
 
 
@@ -51,7 +61,7 @@ export class ApiService {
 
   getLocations(): Observable<any> {
     const url = `${this.apiUrl}/api/get_locations`;
-    return this.http.get(url);
+    return this.http.get(url , {headers:this.headers});
   }
 
   userLogin(data: any): Observable<any> {
@@ -87,5 +97,10 @@ export class ApiService {
   logout() {
     const url = `${this.apiUrl}/api/logout`;
     return this.http.post(url, {}, { headers: this.headers });
+  }
+
+  saveFeedback(data: any) {
+    const url = `${this.apiUrl}/api/save_feedback`;
+    return this.http.post(url, data, { headers: this.headers });
   }
 }
