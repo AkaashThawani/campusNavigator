@@ -1,1 +1,55 @@
-<p>sign-ip works!</p>
+<div class="signup-container">
+    <mat-card>
+        <mat-card-header class="primary-bg">
+            <mat-card-title class="white p-5">Sign Up</mat-card-title>
+            <mat-divider [inset]="true"></mat-divider>
+        </mat-card-header>
+
+        <mat-card-content class="mt-10">
+            <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+                <mat-form-field class="form-group" appearance="outline">
+                    <input matInput type="text" id="name" name="name" [(ngModel)]="user.name" placeholder="Name"
+                        required>
+                    <mat-error
+                        *ngIf="signupForm.controls['name'].invalid && (signupForm.controls['name'].dirty || signupForm.controls['name'].touched)">
+                        Name is required.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-group" appearance="outline">
+                    <input matInput type="email" id="email" name="email" [(ngModel)]="user.email" placeholder="Email"
+                        required email>
+                    <mat-error
+                        *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)">
+                        <span *ngIf="signupForm.controls['email'].hasError('required')">Email is required.</span>
+                        <span *ngIf="signupForm.controls['email'].hasError('email')">Invalid email format.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-group" appearance="outline">
+                    <input matInput type="password" id="password" name="password" [(ngModel)]="user.password"
+                        placeholder="Password" required minlength="8">
+                    <mat-error
+                        *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)">
+                        <span *ngIf="signupForm.controls['password'].hasError('required')">Password is required.</span>
+                        <span *ngIf="signupForm.controls['password'].hasError('minLength')">Password must be at least 8
+                            characters long.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-group" appearance="outline">
+                    <input matInput type="password" id="confirmPassword" name="confirmPassword"
+                        [(ngModel)]="user.confirmPassword" placeholder="Confirm Password" required>
+                    <mat-error
+                        *ngIf="signupForm.controls['confirmPassword'].invalid && (signupForm.controls['confirmPassword'].dirty || signupForm.controls['confirmPassword'].touched)">
+                        <span *ngIf="signupForm.controls['confirmPassword'].hasError('required')">Please confirm the
+                            password.</span>
+                        <span *ngIf="user.password !== user.confirmPassword">Passwords do not match.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button class="primary-btn" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

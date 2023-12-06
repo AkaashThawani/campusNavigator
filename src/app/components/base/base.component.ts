@@ -53,6 +53,14 @@ export class BaseComponent {
         }
       })
     }
+    this.authService.validateLogin().subscribe((res) => {
+      if (res.status == 'success' && res.login) {
+        this.logIn = true
+        this.apiService.setLogin(true)
+        this.apiService.USERID = this.userData.userid;
+        this.apiService.USERTYPE = this.userData.usertype
+      }
+    })
   }
 
   toggle() {
@@ -79,9 +87,18 @@ export class BaseComponent {
   }
 
   logout() {
-    this.authService.logout()
-    this.apiService.setLogin(false)
-    this.logIn = false
+    this.authService.logout().subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.apiService.openSnackBar(res.message);
+        sessionStorage.removeItem('userData');
+        this.router.navigate([""])
+        this.apiService.setLogin(false)
+        this.logIn = false
+      } else {
+        this.apiService.openSnackBar(res?.message)
+      }
+    })
+
   }
 
 }

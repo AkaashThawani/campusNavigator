@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SignIpComponent } from '../sign-ip/sign-ip.component';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-login-form',
@@ -21,16 +22,30 @@ export class LoginFormComponent {
   password: string = ''
   @Input() userType: 'user' | 'admin' = 'user';
 
-  constructor(private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private authService: AuthService, private dialog: MatDialog, private apiService: ApiService) { }
 
   login(username: string, password: string): void {
     // Call the login service method based on userType
     if (this.userType === 'user') {
-      this.authService.loginUser(username, password);
-      this.dialog.closeAll()
+      this.authService.loginUser(username, password).subscribe((res) => {
+        console.log(res)
+        if (res.status == 'success') {
+          this.apiService.setLoginDetails(res,'normal')
+          this.dialog.closeAll()
+        } else {
+          this.apiService.openSnackBar(res.message)
+        }
+      });
     } else {
-      this.authService.loginAdmin(username, password);
-      this.dialog.closeAll()
+      this.authService.loginAdmin(username, password).subscribe((res) => {
+        console.log(res)
+        if (res.status == 'success') {
+          this.apiService.setLoginDetails(res,'admin')
+          this.dialog.closeAll()
+        } else {
+          this.apiService.openSnackBar(res.message)
+        }
+      })
     }
   }
 

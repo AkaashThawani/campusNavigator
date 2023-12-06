@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { TokenInterceptor } from './token.interceptor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private apiService: ApiService) { }
-
-  login(username: string, password: string) {
+  constructor(private apiService: ApiService,) {
 
   }
 
-  logout(): void {
-    // Clear user session data from local storage
-    sessionStorage.removeItem('userData');
-    this.resetUD()
+  APIURL = "http://localhost:8000/"
+
+
+  logout():Observable<any> {
+    return this.apiService.logout()
   }
   resetUD() {
     this.apiService.setLogin(false)
@@ -25,9 +25,7 @@ export class AuthService {
   }
 
   loginUser(id: string, pass: string) {
-    sessionStorage.setItem('userData', JSON.stringify({ 'user': id, 'login': true, 'usertype': 'normal' }))
-    this.setUD({ 'user': id, 'login': true, 'usertype': 'normal' })
-    return
+    return this.apiService.userLogin({ 'username': id, 'password': pass })
   }
   setUD(userData: any) {
     this.apiService.setLogin(true)
@@ -36,9 +34,11 @@ export class AuthService {
   }
 
   loginAdmin(id: string, pass: string) {
-    sessionStorage.setItem('userData', JSON.stringify({ 'user': id, 'login': true, 'usertype': 'admin' }))
-    this.setUD({ 'user': id, 'login': true, 'usertype': 'admin' })
-    return
+    return this.apiService.adminLogin({ username: id, password: pass })
+  }
+
+  validateLogin(){
+    return this.apiService.validateSession()
   }
 
 }

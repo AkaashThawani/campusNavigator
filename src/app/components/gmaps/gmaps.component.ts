@@ -157,7 +157,7 @@ export class GmapsComponent {
           lng: this.toLocation.lng().toString()
         },
         "travel_mode": this.selectedMode.toUpperCase(),
-        "search_by": "ANON" 
+        "search_by": this.userId
       };
 
       this.locationService.saveLocation(locationData).subscribe(
@@ -179,6 +179,7 @@ export class GmapsComponent {
   toggleMode(mode: 'driving' | 'walking' | 'bicycling') {
     this.selectedMode = mode;
     this.calculateAndDisplayRoute();
+    this.saveLocation()
   }
 
   private handlePlaceSelection(location: google.maps.LatLng, isFromLocation: boolean) {
@@ -198,8 +199,6 @@ export class GmapsComponent {
       });
 
     }
-
-
 
     // Update the corresponding location variable
     if (isFromLocation) {
@@ -274,5 +273,14 @@ export class GmapsComponent {
 
     return 0; // Default distance if markers are not available or not enough
   }
+
+  get userId(){
+    if (JSON.parse(sessionStorage.getItem('userData') as any)?.userid) {
+      return JSON.parse(sessionStorage.getItem('userData') as any)?.userid
+    } else {
+      return null
+    }
+  }
+
 }
 

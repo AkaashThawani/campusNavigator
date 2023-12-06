@@ -49,7 +49,7 @@
 }
 
 .mode-toggle button.active {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: #fff;
 }
 
