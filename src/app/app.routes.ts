@@ -30,8 +30,10 @@ export const routes: Routes = [
     }, {
         path: 'feedback',
         component: FeedbackComponent
-    },{
-        path:'reports',
-        component:ReportsComponent
+    }, {
+        path: 'reports',
+        component: ReportsComponent,
+        canActivate: [() => { return JSON.parse(sessionStorage.getItem('userData') as any)?.usertype == 'admin' ? true : false }]
+
     }
 ];

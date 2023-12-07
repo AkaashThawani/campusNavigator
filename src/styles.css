@@ -100,7 +100,7 @@ body {
 
 
 .primary-text {
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
 }
 
 .primary-btn {

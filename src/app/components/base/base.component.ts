@@ -18,19 +18,19 @@ import { AuthService } from '../../auth.service';
 import { EventPageComponent } from "../event-page/event-page.component";
 
 @Component({
-    selector: 'app-base',
-    standalone: true,
-    templateUrl: './base.component.html',
-    styleUrl: './base.component.css',
-    encapsulation: ViewEncapsulation.None,
-    imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatDividerModule, MatButtonModule, RouterOutlet, MatIconModule, GoogleMapsModule, FlexLayoutServerModule, FlexLayoutModule, MatMenuModule, EventPageComponent]
+  selector: 'app-base',
+  standalone: true,
+  templateUrl: './base.component.html',
+  styleUrl: './base.component.css',
+  encapsulation: ViewEncapsulation.None,
+  imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatDividerModule, MatButtonModule, RouterOutlet, MatIconModule, GoogleMapsModule, FlexLayoutServerModule, FlexLayoutModule, MatMenuModule, EventPageComponent]
 })
 export class BaseComponent {
 
   public router = inject(Router);
   constructor(private dialog: MatDialog, private apiService: ApiService, private authService: AuthService) { }
 
-  sideNavData = [{ name: 'Map', id: 'maps', 'user': 'normal', icon: 'map' }, { name: 'Events', id: 'events', 'user': 'normal', icon: 'event' }, { name: 'Resources', id: 'resources', 'user': 'normal', icon: 'help' }, { name: 'Contact Us', id: 'feedback', 'user': 'normal', icon: 'feedback' }];
+  sideNavData = [{ name: 'Map', id: 'maps', 'user': 'normal', icon: 'map' }, { name: 'Events', id: 'events', 'user': 'normal', icon: 'event' }, { name: 'Buildings', id: 'resources', 'user': 'normal', icon: 'location_city' }, { name: 'Contact Us', id: 'feedback', 'user': 'normal', icon: 'feedback' }, { name: 'Analytics', id: 'reports', 'user': 'admin', icon: 'timeline' }];
 
   @ViewChild('sidenav')
   public sidenav!: MatSidenav;
@@ -66,7 +66,7 @@ export class BaseComponent {
 
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.sidenav.open()
   }
 
@@ -98,20 +98,21 @@ export class BaseComponent {
       if (res.status == 'success') {
         this.apiService.openSnackBar(res.message);
         sessionStorage.removeItem('userData');
-        this.router.navigate([""])
+        this.router.navigate(["maps"])
         this.apiService.setLogin(false)
         this.logIn = false
       } else {
+        sessionStorage.removeItem('userData');
         this.apiService.setLogin(false)
+        this.router.navigate(["maps"])
         this.logIn = false
         this.apiService.openSnackBar(res?.message)
       }
     })
-    sessionStorage.removeItem('userData');
 
   }
 
-  openNotification(){
+  openNotification() {
     this.apiService.openNotificationBar('THIS IS A NOTIFICATION !!')
   }
 

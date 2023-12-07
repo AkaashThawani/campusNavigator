@@ -1,55 +1,19 @@
-<mat-card class="p-10">
-    <div class="m-10">
-        <span class="resource-page-header large-text">
-            <div>Campus Resources</div>
-            <div>
-                <button (click)="addResource()" mat-icon-button matTooltip="Add Resources">
-                    <mat-icon>add_circle_outline</mat-icon> 
-                </button>
-            </div>
-        </span>
+<ngx-slick-carousel class="carousel" [config]="carouselConfig" #slickModal="slick-carousel">
+    @for (building of buildings; track $index) {
+    <div class="carousel-slide">
+        <!-- Your existing card structure goes here -->
+        <mat-card ngxSlickItem  fxLayout="column wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <mat-card-header>
+                <mat-card-title>{{ building.build_name }}</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <img id="rimg" mat-card-image [src]="building.image" alt="{{ building.build_name }}">
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                
+                <p>{{ building.build_description }}</p>
+            </mat-card-content>
+        </mat-card>
     </div>
-    <mat-divider></mat-divider>
-    <div>
-        @for(rtype of rTypeData;track rtype){
-        <mat-accordion class="m-5">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{rtype}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        This is a summary of the content
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div>
-                    @for(item of rDetailData;track item){
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <mat-card-title clas="full-width">
-                                <div class="resource-header">
-                                    <div>{{item.heading}}</div>
-                                    <div>
-                                        <button mat-icon-button color="secondary" matTooltip="Edit">
-                                            <mat-icon>edit</mat-icon>
-                                        </button>
-                                        <button mat-icon-button color="warn" matTooltip="Delete">
-                                            <mat-icon>delete</mat-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                            </mat-card-title>
-                            <mat-card-subtitle>{{item.tags}}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <p>{{item.details}}</p>
-                        </mat-card-content>
-                    </mat-card>
-                    <mat-divider></mat-divider>
-                    }
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-        }
-    </div>
-</mat-card>
+    }
+</ngx-slick-carousel>

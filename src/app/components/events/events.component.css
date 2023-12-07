@@ -4,12 +4,13 @@
     top: 0px;
     /* Set the top position as needed */
     right: 0px;
-    width: 300px;
+    width: 310px;
     /* Set the width as needed */
-    background-color: wheat;
+    background-color:#ececec;
     /* Set the background color as needed */
     color: #fff;
-    z-index: 1;
+    border: 1px solid #ececec;
+    z-index: 999;
     /* Set a higher z-index to render on top of the bottom div */
     animation: slideIn 1s forwards;
 }
@@ -22,4 +23,12 @@
     to {
         transform: translateX(0);
     }
+}
+
+table {
+    width: 100%;
+}
+
+.events{
+    height: 100vh;
 }

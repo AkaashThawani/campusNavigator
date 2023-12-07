@@ -1,1 +1,20 @@
-<p>event-page works!</p>
+<mat-card class="p-10" style="height: 100%;width: 100%;">
+    <div fxLayout="row nowrap" fxLayoutAlign="space-between center" style="color: black;" fxFlex="10">
+        <span class="bold">{{selectedEvent.event_name}}</span>
+        <button mat-icon-button (click)="close.emit(true)">X</button>
+    </div>
+    <mat-divider class="p-5"></mat-divider>
+    <div fxFlex="40">
+        <img [src]="selectedEvent.image" style="width: 100%;height: 100%;">
+    </div>
+    <mat-divider [inset]="true" class="p-5"></mat-divider>
+    <div fxFlex fxLayout="column nowrap" fxLayoutAlign="start stretch" fxLayoutGap="15px"
+        style="color: black;overflow-x: scroll;">
+        <div>Start : {{selectedEvent.event_start_time | date:'dd/MM/yy'}}</div>
+        <div>End : {{selectedEvent.event_end_time | date:'dd/MM/yy'}}></div>
+        <div>Type : {{selectedEvent.event_type}} </div>
+        <div>Organizer : {{selectedEvent.event_org_name}} </div>
+        <div>Location : {{selectedEvent.event_location}} </div>
+        <div>Description : {{selectedEvent.event_description}}</div>
+    </div>
+</mat-card>

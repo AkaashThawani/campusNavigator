@@ -30,14 +30,14 @@ export class ApiService {
   accessToken = ''
 
   openSnackBar(message: any) {
-    this.snackBar.open(message, 'X',{
-      duration:1000
+    this.snackBar.open(message, 'X', {
+      duration: 1000
     });
   }
 
   openNotificationBar(message: any) {
-    this.snackBar.open(message, 'X',{
-      duration:3000,
+    this.snackBar.open(message, 'X', {
+      duration: 3000,
       horizontalPosition: "center",
       verticalPosition: "top",
     });
@@ -61,7 +61,7 @@ export class ApiService {
 
   getLocations(): Observable<any> {
     const url = `${this.apiUrl}/api/get_locations`;
-    return this.http.get(url , {headers:this.headers});
+    return this.http.get(url, { headers: this.headers });
   }
 
   userLogin(data: any): Observable<any> {
@@ -84,6 +84,11 @@ export class ApiService {
     return this.http.post(url, data)
   }
 
+  getEvents() {
+    const url = `${this.apiUrl}/api/get_campus_events`
+    return this.http.get(url)
+  }
+
   setLoginDetails(data: any, usertype: any) {
     this.LOGIN.next(true)
     this.accessToken = data.access_token
@@ -102,5 +107,16 @@ export class ApiService {
   saveFeedback(data: any) {
     const url = `${this.apiUrl}/api/save_feedback`;
     return this.http.post(url, data, { headers: this.headers });
+  }
+
+  getBuildings() {
+    const url = `${this.apiUrl}/api/get_buildings`;
+    return this.http.get(url, { headers: this.headers });
+  }
+
+  getCampusImage(imgURL) {
+    const url = `${this.apiUrl}/api/get_image`;
+
+    return this.http.post(url, imgURL, { headers: this.headers, responseType: 'blob' });
   }
 }
