@@ -30,21 +30,25 @@ export class LoginFormComponent {
       this.authService.loginUser(username, password).subscribe((res) => {
         console.log(res)
         if (res.status == 'success') {
-          this.apiService.setLoginDetails(res,'normal')
+          this.apiService.setLoginDetails(res, 'normal')
           this.dialog.closeAll()
         } else {
           this.apiService.openSnackBar(res.message)
         }
+      }, (error) => {
+        this.apiService.openSnackBar('Login Failed')
       });
     } else {
       this.authService.loginAdmin(username, password).subscribe((res) => {
         console.log(res)
         if (res.status == 'success') {
-          this.apiService.setLoginDetails(res,'admin')
+          this.apiService.setLoginDetails(res, 'admin')
           this.dialog.closeAll()
         } else {
           this.apiService.openSnackBar(res.message)
         }
+      }, (error) => {
+        this.apiService.openSnackBar('Login Failed')
       })
     }
   }

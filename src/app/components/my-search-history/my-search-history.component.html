@@ -1,0 +1,43 @@
+<mat-card class="sh">
+    <table mat-table [dataSource]="data">
+        <ng-container matColumnDef="from">
+            <th mat-header-cell *matHeaderCellDef> From </th>
+            <td mat-cell *matCellDef="let element"> {{element.from_location_name}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="edisc">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element"> {{element.event_description}} </td>
+        </ng-container> -->
+        <ng-container matColumnDef="to">
+            <th mat-header-cell *matHeaderCellDef> To </th>
+            <td mat-cell *matCellDef="let element"> {{element.to_location_name }} </td>
+        </ng-container>
+        <ng-container matColumnDef="mode">
+            <th mat-header-cell *matHeaderCellDef> Mode </th>
+            <td mat-cell *matCellDef="let element"> {{element.travel_mode }} </td>
+        </ng-container>
+        <ng-container matColumnDef="loc">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.timestamp | date:'dd/MM/yy'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="act">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button class="primary-text" (click)="bookmark(element)">
+                    <mat-icon *ngIf="!element.saved">bookmark_border</mat-icon>
+                    <mat-icon *ngIf="element.saved">bookmark</mat-icon>
+                </button>
+                <button mat-icon-button class="primary-text" (click)="repeateRoute(element)">
+                    <mat-icon>directions</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns,sticky: true" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9999">
+              No data 
+            </td>
+          </tr>
+    </table>
+</mat-card>

@@ -25,7 +25,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-gmaps',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, MatInputModule, MatButtonModule, FlexLayoutModule, FlexLayoutServerModule, NgSelectModule, MatFormFieldModule, FormsModule, GoogleMapsModule, SafeHtmlPipe, MatSelectModule,MatIconModule,MatCardModule],
+  imports: [CommonModule, GoogleMapsModule, MatInputModule, MatButtonModule, FlexLayoutModule, FlexLayoutServerModule, NgSelectModule, MatFormFieldModule, FormsModule, GoogleMapsModule, SafeHtmlPipe, MatSelectModule, MatIconModule, MatCardModule],
   providers: [ApiService],
   templateUrl: './gmaps.component.html',
   styleUrl: './gmaps.component.css'
@@ -68,13 +68,37 @@ export class GmapsComponent {
 
   ngOnInit() {
 
-    this.locationService.getLocations().subscribe((res) => {
-      console.log("res", res)
+    // this.locationService.getLocations().subscribe((res) => {
+    //   console.log("res", res)
+    // })
+
+    this.locationService.getPrevSearchData().subscribe((res: any) => {
+      console.log('prev search', res)
+      if (Object.keys(JSON.parse(sessionStorage.getItem('prevSearch'))).length > 0) {
+        res = JSON.parse(sessionStorage.getItem('prevSearch'))
+        // console.log(res)
+        const fromLocation = new google.maps.LatLng(parseFloat(res.from_location_lat), parseFloat(res.from_location_lng))
+        // console.log(res.from_location_lat, parseFloat(res.from_location_lng))
+        const toLocation = new google.maps.LatLng(parseFloat(res.to_location_lat), parseFloat(res.to_location_lng))
+        this.searchQuery = res.from_location_name
+        this.searchQuery2 = res.to_location_name
+        this.fromLocation = fromLocation
+        this.toLocation = toLocation
+        this.fromLocationName = res.from_location_name
+        this.toLocationName = res.to_location_name
+        this.placesSearchElement.nativeElement.innerHTML = res.from_location_name
+        this.placesSearchElement2.nativeElement.innerHTML = res.to_location_name
+        this.selectedMode = res.travel_mode.toLowerCase()
+        this.handlePlaceSelection(fromLocation, true)
+        this.handlePlaceSelection(toLocation, false)
+        this.saveLocation()
+
+      }
     })
 
     this.directionsRenderer.setMap(this.map?.googleMap as any);
-    console.log(this.map)
-    console.log(this.directionsRenderer)
+    // console.log(this.map)
+    // console.log(this.directionsRenderer)
 
     navigator.geolocation.getCurrentPosition(position => {
       this.center = {
@@ -276,7 +300,7 @@ export class GmapsComponent {
     return 0; // Default distance if markers are not available or not enough
   }
 
-  get userId(){
+  get userId() {
     if (JSON.parse(sessionStorage.getItem('userData') as any)?.userid) {
       return JSON.parse(sessionStorage.getItem('userData') as any)?.userid
     } else {

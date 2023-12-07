@@ -30,5 +30,6 @@ table {
 }
 
 .events{
-    height: 100vh;
+    height: 80vh;
+    overflow-y: scroll;
 }

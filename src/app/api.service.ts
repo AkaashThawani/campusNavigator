@@ -15,6 +15,16 @@ export class ApiService {
   USERID: any = null
   USERTYPE: string = ''
 
+  prevSearchData: BehaviorSubject<any> = new BehaviorSubject({})
+
+  getPrevSearchData() {
+    return this.prevSearchData.asObservable()
+  }
+
+  setPrevSearchData(data) {
+    this.prevSearchData.next(data)
+  }
+
   apiUrl = 'http://localhost:8000'
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
@@ -90,6 +100,7 @@ export class ApiService {
   }
 
   setLoginDetails(data: any, usertype: any) {
+    this.setPrevSearchData({})
     this.LOGIN.next(true)
     this.accessToken = data.access_token
     this.USERTYPE = data.usertype || usertype
@@ -116,7 +127,16 @@ export class ApiService {
 
   getCampusImage(imgURL) {
     const url = `${this.apiUrl}/api/get_image`;
-
     return this.http.post(url, imgURL, { headers: this.headers, responseType: 'blob' });
+  }
+
+  saveFavSearch(userid, data) {
+    const url = `${this.apiUrl}/api/user/${userid}/fav-search/save`;
+    return this.http.post(url, data, { headers: this.headers });
+  }
+
+  getUserFavSearch(userid) {
+    const url = `${this.apiUrl}/api/user/${userid}/fav-search`;
+    return this.http.get(url, { headers: this.headers });
   }
 }

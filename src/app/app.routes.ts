@@ -5,6 +5,7 @@ import { ContactusComponent } from './components/contactus/contactus.component';
 import { GmapsComponent } from './components/gmaps/gmaps.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { MySearchHistoryComponent } from './components/my-search-history/my-search-history.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,10 @@ export const routes: Routes = [
     }, {
         path: 'feedback',
         component: FeedbackComponent
+    }, {
+        path: 'history',
+        component: MySearchHistoryComponent,
+        canActivate: [() => { return JSON.parse(sessionStorage.getItem('userData') as any)?.login ? true : false }]
     }, {
         path: 'reports',
         component: ReportsComponent,
