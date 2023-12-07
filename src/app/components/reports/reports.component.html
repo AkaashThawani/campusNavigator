@@ -1,6 +1,6 @@
 <div fxLayout="row nowrap" fxLayoutAlign="space-between stretch">
     <mat-card fxFlex="49" fxLayout="column nowrap" fxLayoutAlign="center stretch">
-        <div class="center bold mt-10">Top From Locations</div>
+        <div class="center bold mt-10">Top 3 From Locations</div>
         <div>
             @for (locaton of topFromLocations; track $index) {
             <ul>
@@ -10,7 +10,7 @@
         </div>
     </mat-card>
     <mat-card fxFlex="49" fxLayout="column nowrap" fxLayoutAlign="center stretch">
-        <div class="center bold  mt-10">Top From Locations</div>
+        <div class="center bold  mt-10">Top 3 To Locations</div>
         <div>
             @for (locaton of topToLocations; track $index) {
             <ul>
@@ -27,6 +27,6 @@
     </div>
     <div fxFlex="49">
         <app-charts [pieChartBg]="['red','blue']" [pieChartData]="regChartData" [pieChartLabels]="regChartLabels"
-            pieChartType="pie" [chartText]="'Type of Users'"></app-charts>
+            pieChartType="pie" [chartText]="'Query type by User'"></app-charts>
     </div>
 </div>

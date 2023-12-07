@@ -10,4 +10,6 @@
     </mat-form-field>
     <button mat-raised-button color="primary" class="p-5" (click)="login(username, password)">Login</button>
     <div *ngIf="userType=='user'" class="mt-15">New User ? <a (click)="openSignUp()">Sign Up</a></div>
+    <div class="mt-15"><a (click)="openSignUp()">Forgot Password</a></div>
+
 </div>

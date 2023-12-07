@@ -101,13 +101,21 @@ export class BaseComponent {
         this.router.navigate(["maps"])
         this.apiService.setLogin(false)
         this.logIn = false
+        this.sideNavData = [...this.sideNavData]
       } else {
-        sessionStorage.removeItem('userData');
         this.apiService.setLogin(false)
         this.router.navigate(["maps"])
         this.logIn = false
+        this.sideNavData = [...this.sideNavData]
         this.apiService.openSnackBar(res?.message)
+        sessionStorage.removeItem('userData')
       }
+    }, (error) => {
+      this.apiService.setLogin(false)
+      this.sideNavData = [...this.sideNavData]
+      this.router.navigate(["maps"])
+      sessionStorage.removeItem('userData');
+      this.logIn = false
     })
 
   }
@@ -116,7 +124,7 @@ export class BaseComponent {
     this.apiService.openNotificationBar('THIS IS A NOTIFICATION !!')
   }
 
-  gotobase(){
+  gotobase() {
     this.router.navigate(["maps"])
   }
 
