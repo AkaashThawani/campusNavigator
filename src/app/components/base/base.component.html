@@ -6,7 +6,7 @@
                     <mat-icon class="white">{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
                 </button>
                 <mat-divider [vertical]="true"></mat-divider>
-                <span>Campus Navigator</span>
+                <span (click)="gotobase()">Campus Navigator</span>
             </div>
             <button *ngIf="!logIn;else logged" mat-icon-button (click)="openLogin()">
                 <mat-icon class="white">account_circle</mat-icon>

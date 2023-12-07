@@ -116,4 +116,8 @@ export class BaseComponent {
     this.apiService.openNotificationBar('THIS IS A NOTIFICATION !!')
   }
 
+  gotobase(){
+    this.router.navigate(["maps"])
+  }
+
 }
